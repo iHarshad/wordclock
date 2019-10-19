@@ -101,11 +101,8 @@ def clear_mins():
             
 def clear_hour():
     for j in range(12):
-        for k in range(3):
-            if (k + 4 > 4):
-                Matrix[k+4][j] = 0
-            elif (k+4 == 4 and j > 7):
-                Matrix[k+4][j] = 0
+        for k in range(5):
+            Matrix[k+4][j] = 0
 
 def clear_matrix():
     Matrix = np.zeros((12,12))
