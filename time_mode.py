@@ -2,6 +2,8 @@ import datetime as dt
 import time
 import numpy as np
 
+Matrix = np.zeros((12,12)) #valid letter matrix
+
 # Returns current hour according to system time
 def getHour():
     if (dt.datetime.now().hour == 0):
@@ -16,15 +18,11 @@ def getHour():
 def getMinutes():
     return dt.datetime.now().minute;
 
-def setValidMatrix(hour, minutes): # decodes time and sets valid matrix
-    set_matrix([0,0,2]);
-    set_matrix([0,3,2]);
-    set_matrix([9,6,6]);
+def getSeconds():
+    return dt.datetime.now().second;
+
+def set_minutes(minutes): # decodes time and sets valid matrix
     if (minutes > 35):
-        if (hour == 12):
-            set_matrix(get_location(hour));
-        else:
-            set_matrix(get_location(hour + 1));
         set_matrix([4,1,2]);
         if (minutes < 40):
             set_matrix([3,1,10]);
@@ -37,7 +35,6 @@ def setValidMatrix(hour, minutes): # decodes time and sets valid matrix
         elif (minutes < 60):
             set_matrix([3,7,4]);
     else:
-        set_matrix(get_location(hour));
         set_matrix([4,3,4]);
         if (minutes < 10):
             set_matrix([3,7,4]);
@@ -51,6 +48,15 @@ def setValidMatrix(hour, minutes): # decodes time and sets valid matrix
             set_matrix([3,1,10]);
         elif (minutes < 35):
             set_matrix([1,2,4]);
+
+def set_hour(hour):
+    if (getMinutes() > 35):
+        if (hour == 12):
+            set_matrix(get_location(hour));
+        else:
+            set_matrix(get_location(hour + 1));
+    else:
+        set_matrix(get_location(hour));
 
 # returns X location of hour in matrix
 # X IS DOWN, Y IS ACROSS
@@ -80,7 +86,29 @@ def get_location(hour):
     else:
         return [8,3,6]
 
-Matrix = np.zeros((12,12)) #letter matrix
+def set_base_words():
+    set_matrix([0,0,2]);
+    set_matrix([0,3,2]);
+    set_matrix([9,6,6]);
+
+def clear_mins():
+    for j in range(12):
+        for k in range(3):
+            if (k+1 < 4):
+                Matrix[k+1][j] = 0
+            elif (k+1 == 4 and j <= 7):
+                Matrix[k+1][j] = 0
+            
+def clear_hour():
+    for j in range(12):
+        for k in range(3):
+            if (k + 4 > 4):
+                Matrix[k+4][j] = 0
+            elif (k+4 == 4 and j > 7):
+                Matrix[k+4][j] = 0
+
+def clear_matrix():
+    Matrix = np.zeros((12,12))
 
 def set_matrix(loc):
     for n in range(loc[2]):
