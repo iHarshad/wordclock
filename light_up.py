@@ -21,17 +21,20 @@ def disp_clear_hour():
     time_mode.clear_hour()
     time_mode.clear_mins()
     for j in range(12):
-        for k in range(8):
+        for k in range(5):
             m = mapping_matrix.getMatrix() # create mapping matrix
-            pixels[int(m[k+1][j])] = (0, 0, 0)
+            pixels[int(m[k+4][j])] = (0, 0, 0)
             
 # clears LEDs except for words "it" "is" and "oclock" and "hour"
 def disp_clear_mins():
     time_mode.clear_mins()
     for j in range(12):
-        for k in range(4):
+        for k in range(3):
             m = mapping_matrix.getMatrix() # create mapping matrix
-            pixels[int(m[k+1][j])] = (0, 0, 0)
+            if (k+1 < 4):
+                pixels[int(m[k+1][j])] = (0, 0, 0)
+            elif (k+1 == 4 and j <= 7):
+                pixels[int(m[k+1][j])] = (0, 0, 0)
 
 def clear_LEDs():
     pixels.fill((0,0,0))
