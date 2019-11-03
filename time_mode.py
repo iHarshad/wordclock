@@ -35,24 +35,25 @@ def set_minutes(minutes): # decodes time and sets valid matrix
         elif (minutes < 60):
             set_matrix([3,7,4]);
     else:
-        set_matrix([4,3,4]);
-        if (minutes < 10):
-            set_matrix([3,7,4]);
-        elif (minutes < 15):
-            set_matrix([1,6,3]);
-        elif (minutes < 20):
-            set_matrix([2,2,7]);
-        elif (minutes < 25):
-            set_matrix([3,1,6]);
-        elif (minutes < 30):
-            set_matrix([3,1,10]);
-        elif (minutes < 35):
-            set_matrix([1,2,4]);
+        if (minutes >= 5):
+            set_matrix([4,3,4]);
+            if (minutes < 10):
+                set_matrix([3,7,4]);
+            elif (minutes < 15):
+                set_matrix([1,6,3]);
+            elif (minutes < 20):
+                set_matrix([2,2,7]);
+            elif (minutes < 25):
+                set_matrix([3,1,6]);
+            elif (minutes < 30):
+                set_matrix([3,1,10]);
+            elif (minutes < 35):
+                set_matrix([1,2,4]);
 
 def set_hour(hour):
     if (getMinutes() > 35):
         if (hour == 12):
-            set_matrix(get_location(hour));
+            set_matrix(get_location(1));
         else:
             set_matrix(get_location(hour + 1));
     else:
@@ -80,7 +81,7 @@ def get_location(hour):
     elif hour == 9:
         return [9,0,4]
     elif hour == 10:
-        return [1,6,3]
+        return [8,9,3]
     elif hour == 11:
         return [6,1,6]
     else:
@@ -91,18 +92,13 @@ def set_base_words():
     set_matrix([0,3,2]);
     set_matrix([9,6,6]);
 
-def clear_mins():
+def clear_middle():
     for j in range(12):
-        for k in range(3):
-            if (k+1 < 4):
+        for k in range(8):
+            if k == 8 and j <= 3:
+                Matrix[9][j] = 0
+            elif k != 8:
                 Matrix[k+1][j] = 0
-            elif (k+1 == 4 and j <= 7):
-                Matrix[k+1][j] = 0
-            
-def clear_hour():
-    for j in range(12):
-        for k in range(5):
-            Matrix[k+4][j] = 0
 
 def clear_matrix():
     Matrix = np.zeros((12,12))
