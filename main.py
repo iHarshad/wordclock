@@ -8,30 +8,18 @@ changed = 0;
 
 def main():
     light_up.clear_LEDs()
+    light_up.disp_time()
+    #print(time_mode.getMinutes())
+    #print(time_mode.getHour())
+    
     while 1:
-        if (time_mode.getMinutes() == 0 and time_mode.getSeconds() == 0):
-            light_up.disp_clear_hour()
-            time_mode.set_hour(time_mode.getHour())
-            time_mode.set_minutes(time_mode.getMinutes())
-            time_mode.set_base_words()
+        if (time_mode.getMinutes() == 0 and time_mode.getSeconds() == 0 or
+            time_mode.getMinutes() % 5 == 0 and time_mode.getSeconds() == 0):
+            light_up.disp_clear_middle()
             light_up.disp_time()
             time.sleep(1)
-            
-        elif (time_mode.getMinutes() % 5 == 0 and time_mode.getSeconds() == 0):
-            light_up.disp_clear_mins()
-            time_mode.set_hour(time_mode.getHour())
-            time_mode.set_minutes(time_mode.getMinutes())
-            time_mode.set_base_words()
-            light_up.disp_time()
-            time_mode.clear_matrix()
-            time.sleep(1)
+        
 
-        else:
-            time_mode.set_hour(time_mode.getHour())
-            time_mode.set_minutes(time_mode.getMinutes())
-            time_mode.set_base_words()
-            light_up.disp_time()
-            time_mode.clear_matrix()
 main()
 
 
