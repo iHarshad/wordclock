@@ -2,6 +2,8 @@ import datetime as dt
 import time
 import numpy as np
 
+from datetime import datetime
+
 Matrix = np.zeros((12,12)) #valid letter matrix
 
 # Returns current hour according to system time
@@ -21,8 +23,32 @@ def getMinutes():
 def getSeconds():
     return dt.datetime.now().second;
 
+def getDay():
+    day = datetime.today().strftime('%A')
+    if day == 'Monday':
+        return 0;
+    elif day == 'Tuesday':
+        return 1;
+    elif day == 'Wednesday':
+        return 2;
+    elif day == 'Thursday':
+        return 3;
+    elif day == 'Friday':
+        return 4;
+    elif day == 'Saturday':
+        return 5;
+    return 6;
+    
+
+def set_day(day):
+    for k in range(7):
+        if k == day:
+            Matrix[11][k] = 2
+        else:
+            Matrix[11][k] = 1
+
 def set_minutes(minutes): # decodes time and sets valid matrix
-    if (minutes > 35):
+    if (minutes >= 35):
         set_matrix([4,1,2]);
         if (minutes < 40):
             set_matrix([3,1,10]);
@@ -94,7 +120,7 @@ def set_base_words():
 
 def clear_middle():
     for j in range(12):
-        for k in range(8):
+        for k in range(9):
             if k == 8 and j <= 3:
                 Matrix[9][j] = 0
             elif k != 8:
