@@ -13,11 +13,11 @@ def main():
     #print(time_mode.getHour())
     
     while 1:
-        if (time_mode.getMinutes() == 0 and time_mode.getSeconds() == 0 or
-            time_mode.getMinutes() % 5 == 0 and time_mode.getSeconds() == 0):
-            light_up.disp_clear_middle()
-            light_up.disp_time()
-            time.sleep(1)
+        if time_mode.getSeconds() == 0:
+            if time_mode.getMinutes() % 5 == 0:
+                light_up.disp_clear_middle()
+                light_up.disp_time()
+                time.sleep(1)
         
 
 main()
