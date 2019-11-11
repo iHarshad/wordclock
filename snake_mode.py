@@ -14,6 +14,7 @@ Matrix = np.zeros((12,12))
 snake = [[5,5], [5,4], [5,3],[5,2]]
 apple = [0,0]
 end = False
+current_direction = 2
 
 def button_init():
     GPIO.setup(23, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO23
@@ -58,20 +59,30 @@ def get_y(arr):
     return arr[1]
 
 def get_button_press():
-    while True:
+    global current_direction
+    
+    timeout = .1
+    timeout_start = time.time()
+    
+    while time.time() < timeout_start + timeout:
         top = GPIO.input(23)
         bottom = GPIO.input(17)
         right = GPIO.input(27)
         left = GPIO.input(22)
 
         if top == False:
+            current_direction = 0
             return 0;
         elif bottom == False:
+            current_direction = 1
             return 1;
         elif right == False:
+            current_direction = 2
             return 2;
         elif left == False:
+            current_direction = 3
             return 3;
+    return current_direction;
 
 def move_snake():
     x = get_x(snake[0])
@@ -115,9 +126,9 @@ def end_game():
     while True:
         pixels.fill((0,0,0))
         pixels.show()
-        time.sleep(1)
+        time.sleep(.4)
         disp_snake()
-        time.sleep(1)
+        time.sleep(.4)
 
 def main():
     global end
@@ -126,6 +137,5 @@ def main():
     while end == False:
         disp_snake()
         move_snake()
-        time.sleep(0.2)
+        time.sleep(0.1)
     end_game()
-main()
