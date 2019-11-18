@@ -77,7 +77,7 @@ def set_minutes(minutes): # decodes time and sets valid matrix
                 set_matrix([1,2,4]);
 
 def set_hour(hour):
-    if (getMinutes() > 35):
+    if (getMinutes() >= 35):
         if (hour == 12):
             set_matrix(get_location(1));
         else:
@@ -132,3 +132,4 @@ def clear_matrix():
 def set_matrix(loc):
     for n in range(loc[2]):
         Matrix[loc[0]][loc[1] + n] = 1; # matrix indexing in python is 'backwards'
+
