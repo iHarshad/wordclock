@@ -2,7 +2,7 @@ import numpy
 import board
 import neopixel
 import random
-pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.2, auto_write=False)
+pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.8, auto_write=False)
 
 import mapping_matrix as mapping_matrix
 from mapping_matrix import *
@@ -132,6 +132,10 @@ def end_game():
         
 def reset_game():
     global Matrix
+    global snake
+    global apple
+    global end
+    global current_direction
     Matrix = np.zeros((12,12))
     pixels.fill((0,0,0))
     snake = [[5,5], [5,4], [5,3],[5,2]]
