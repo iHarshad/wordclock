@@ -37,7 +37,7 @@ def check_mode_change():
     timeout_start = time.time()
     
     while time.time() < timeout_start + timeout:
-        pressed = GPIO.input(XXX)
+        pressed = GPIO.input(25)
         if pressed == False:
             if mode == 0:
                 #clear matrix?
@@ -47,9 +47,8 @@ def check_mode_change():
                 clock();
 
 def main():
-    GPIO.setup(XXX, GPIO.IN, pull_up_down=GPIO.PUD_UP)#setup button, change XXX to actual gpio pin number
-    clock();
+    GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)#setup button, change XXX to actual gpio pin number
+    clock()
 
 
-
-main()
+clock()
