@@ -123,12 +123,21 @@ def check_snake_hit(location):
 
 def end_game():
     # flash lights
-    while True:
-        pixels.fill((0,0,0))
-        pixels.show()
-        time.sleep(.4)
-        disp_snake()
-        time.sleep(.4)
+    pixels.fill((0,0,0))
+    pixels.show()
+    time.sleep(.4)
+    disp_snake()
+    time.sleep(.4)
+
+        
+def reset_game():
+    global Matrix
+    Matrix = np.zeros((12,12))
+    pixels.fill((0,0,0))
+    snake = [[5,5], [5,4], [5,3],[5,2]]
+    apple = [0,0]
+    end = False
+    current_direction = 2
 
 def main():
     global end
@@ -139,3 +148,4 @@ def main():
         move_snake()
         time.sleep(0.1)
     end_game()
+
