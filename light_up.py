@@ -1,6 +1,6 @@
 import board
 import neopixel
-pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.2, auto_write=False)
+pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.8, auto_write=False)
 
 import time_mode as time_mode
 import mapping_matrix as mapping_matrix
@@ -38,3 +38,4 @@ def disp_clear_middle():
 def clear_LEDs():
     pixels.fill((0,0,0))
     pixels.show()
+
