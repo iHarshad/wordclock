@@ -11,8 +11,6 @@ mode = 0;
 def clock(): #mode 0
     light_up.clear_LEDs()
     light_up.disp_time()
-    #print(time_mode.getMinutes())
-    #print(time_mode.getHour())
     
     while (1):
         if mode == 0:
@@ -23,10 +21,10 @@ def clock(): #mode 0
                     time.sleep(1)
             check_mode_change(); # may effect the check on every five mins since delay incurred
         else:
-            snake_mode.reset_game()
             snake();
 
-def snake():
+def snake(): #mode 1
+    snake_mode.reset_game()
     global mode
     snake_mode.button_init()
     snake_mode.generate_apple()
@@ -36,10 +34,10 @@ def snake():
             snake_mode.move_snake()
             check_mode_change()
             time.sleep(0.1)
-            #check_mode_change()
         else:
             clock();
     snake_mode.end = False;
+    # display end of the game
     while True:
         if mode == 1:
             snake_mode.end_game()
@@ -56,8 +54,8 @@ def check_mode_change():
         mode = 0;
     
 def main():
-    GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)#setup button, change XXX to actual gpio pin number
-    clock()
+    GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    clock() # begin on mode 1
 
 
 main()
