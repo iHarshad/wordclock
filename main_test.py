@@ -1,4 +1,3 @@
-
 import time_mode as time_mode
 import light_up as light_up
 import snake_mode as snake_mode
@@ -47,14 +46,13 @@ def snake(): #mode 1
 
 def check_mode_change():
     global mode
-    pressed = GPIO.input(25)
+    pressed = GPIO.input(26)
     if pressed == False:
-        mode = 1;
-    else:
-        mode = 0;
+        mode = not(mode)
+        time.sleep(.8)
     
 def main():
-    GPIO.setup(25, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     clock() # begin on mode 1
 
 
