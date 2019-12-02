@@ -23,8 +23,8 @@ def button_init():
     GPIO.setup(22, GPIO.IN, pull_up_down=GPIO.PUD_UP)#Button to GPIO22
 
 def disp_snake():
-    pixels.fill((0,0,0))
-    pixels.show()
+    #pixels.fill((0,0,0))
+    #pixels.show()
     for k in range(len(snake)):
         snake_x = get_x(snake[k])
         snake_y = get_y(snake[k])
@@ -119,11 +119,18 @@ def move_snake():
     snake.insert(0, location)
     check_snake_hit(location)
     if location != apple:
+        clear_snake_end()
         snake.pop(len(snake)-1)
     else:
         generate_apple()
     
-
+def clear_snake_end():
+    m = mapping_matrix.getMatrix()
+    l = snake[len(snake)-1]
+    pixels[int(m[get_x(l)][get_y(l)])] = (0,0,0)
+    pixels.show()
+    
+    
 def check_snake_hit(location):
     global end
     if snake.count(location) > 1:
