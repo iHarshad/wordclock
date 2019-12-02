@@ -95,26 +95,34 @@ def move_snake():
         if x-1 >= 0: # boundary condition
             boundary = False
             location = [x-1, y]
+        else:
+            location = [11, y]
     elif direction == 1:
         if x+1 <= 11: # boundary condition
             boundary = False
             location = [x+1, y]
+        else:
+            location = [0, y]
     elif direction == 2:
         if y+1 <= 11: # boundary condition
             boundary = False
             location = [x, y+1]
+        else:
+            location = [x, 0]
     elif direction == 3:
         if y-1 >= 0: # boundary condition
             boundary = False
             location = [x, y-1]
-
-    if boundary == False:
-        snake.insert(0, location)
-        check_snake_hit(location)
-        if location != apple:
-            snake.pop(len(snake)-1)
         else:
-            generate_apple()
+            location = [x, 11]
+
+    snake.insert(0, location)
+    check_snake_hit(location)
+    if location != apple:
+        snake.pop(len(snake)-1)
+    else:
+        generate_apple()
+    
 
 def check_snake_hit(location):
     global end
