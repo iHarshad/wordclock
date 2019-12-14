@@ -9,12 +9,14 @@ import mapping_matrix as mapping_matrix
 from mapping_matrix import *
 
 Matrix = np.zeros((12,12))
-
+rgb = (0,0,0)
 
 def get_temp():
+    global rgb
     owm = pyowm.OWM('42d3356ccc8eb2b64d2ac8acfffe0749')
     observation = owm.weather_at_place("Ithaca,US")
     w = observation.get_weather()
+    rgb = set_rgb(w.get_status())
     temperature = w.get_temperature('fahrenheit')
     return round(temperature['temp'])
 
@@ -39,30 +41,38 @@ def display_temp(rgb):
     for j in range(12):
         for k in range(12):
             if (Matrix[k][j] == 1):
-                print("here")
                 pixels[int(m[k][j])] = rgb
     pixels.show();
 
 #color is currently set based on temperature, but can be set based on weather, etc.
-def set_rgb(temp):
-    if temp >= 70:
-        return (255, 0, 0)
-    elif temp > 30:
-        return (0, 255, 0)
-    else:
-        return (0, 150, 255)
+def set_rgb(status):
+    if status == 'Mist':
+        return((0, 100, 80))
+    elif status == 'Rain':
+        return((0, 150, 255))
+    elif status == 'Drizzle':
+        return((0, 200, 255))
+    elif status == 'Snow':
+        return((200, 200, 255))
+    elif status == 'Clear':
+        return((255, 200, 0))
+    elif status == 'Clouds':
+        return((255, 255, 255))
+    elif status == 'Wind':
+        return((255, 0, 255))
+    return((255, 0, 0)) # default case
         
 def set_digit(digit, firstlastsingle): #first = 0, last = 1, single = 2
     global Matrix
-    offset = 0
+    offset = -1
     if firstlastsingle == 1:
-            offset = 5
+            offset = 4
     elif firstlastsingle == 2:
-            offset = 3
+            offset = 2
 
     if (digit == 1):
         if firstlastsingle != 0:
-            offset = 2
+            offset = 1
         for r in range(7):
             Matrix[r+2][4 + offset] = 1
     elif (digit == 2):
@@ -217,6 +227,12 @@ def set_digit(digit, firstlastsingle): #first = 0, last = 1, single = 2
         Matrix[3][4+offset] = 1
         Matrix[4][4+offset] = 1
         
+    #display degrees symbol
+    Matrix[2][10] = 1
+    Matrix[2][11] = 1
+    Matrix[3][10] = 1
+    Matrix[3][11] = 1
+        
 def split_digits(temp):
     if temp < 10:
         set_digit(temp, 2);
@@ -227,10 +243,9 @@ def split_digits(temp):
 
 
 def main():
+    global rgb
     t = get_temp();
     split_digits(t);
-    clear_LEDs();
-    rgb = set_rgb(t);
     display_temp(rgb);
     
     while True:
