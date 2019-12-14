@@ -34,19 +34,19 @@ def temp():
         temp_test.clear_LEDs();
         t = temp_test.get_temp();
         temp_test.split_digits(t);
-        rgb = temp_test.set_rgb(t);
-        temp_test.display_temp(rgb);
+        temp_test.display_temp(temp_test.rgb);
     except:
         mode = 2; # if offline or no internet, weather mode not availible
     while True:
-        if time_mode.getSeconds() == 0 and time_mode.getMinutes() % 5 == 0: # read temperature every 5 mins
+        if time_mode.getSeconds() == 0 and time_mode.getMinutes() % 2 == 0: # read temperature every 5 mins
             try:
-                temp_test.clear_LEDs();
-                t = temp_test.get_temp();
-                temp_test.split_digits(t);
-                rgb = temp_test.set_rgb(t);
-                temp_test.display_temp(rgb);
-                time.sleep(1)
+                t_new = temp_test.get_temp();
+                if t != t_new:
+                    temp_test.clear_LEDs();
+                    temp_test.split_digits(t_new);
+                    temp_test.display_temp(temp_test.rgb);
+                    t = t_new
+                    time.sleep(1)
             except:
                 mode = 2; # if offline or no internet, weather mode not availible
         
