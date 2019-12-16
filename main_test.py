@@ -10,7 +10,7 @@ changed = 0;
 mode = 0;
 
 def clock(): #mode 0
-    print("clock");
+    #print("clock");
     global mode
     light_up.clear_LEDs()
     light_up.disp_clear_middle()
@@ -28,7 +28,7 @@ def clock(): #mode 0
             temp();
 
 def temp():
-    print("temp");
+    #print("temp");
     global mode
     try:
         temp_test.clear_LEDs();
@@ -57,7 +57,7 @@ def temp():
             snake();
 
 def snake(): #mode 2
-    print("snake");
+    #print("snake");
     snake_mode.reset_game()
     global mode
     snake_mode.button_init()
@@ -100,4 +100,3 @@ def main():
 
 
 main()
-

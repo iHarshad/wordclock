@@ -1,7 +1,7 @@
 # NOTE: needs to be optimized for negative + 3 digit temperatures
 import board
 import neopixel
-pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.6, auto_write=False)
+pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.9, auto_write=False)
 
 import pyowm
 
@@ -44,7 +44,7 @@ def display_temp(rgb):
                 pixels[int(m[k][j])] = rgb
     pixels.show();
 
-#color is currently set based on temperature, but can be set based on weather, etc.
+#color is currently set based on weather status
 def set_rgb(status):
     if status == 'Mist':
         return((0, 100, 80))
@@ -228,10 +228,28 @@ def set_digit(digit, firstlastsingle): #first = 0, last = 1, single = 2
         Matrix[4][4+offset] = 1
         
     #display degrees symbol
-    Matrix[2][10] = 1
-    Matrix[2][11] = 1
-    Matrix[3][10] = 1
-    Matrix[3][11] = 1
+    if firstlastsingle == 1:
+        if digit == 1:
+            Matrix[2][7] = 1
+            Matrix[2][8] = 1
+            Matrix[3][7] = 1
+            Matrix[3][8] = 1
+        else:
+            Matrix[2][10] = 1
+            Matrix[2][11] = 1
+            Matrix[3][10] = 1
+            Matrix[3][11] = 1
+    if firstlastsingle == 2:
+        if digit == 1:
+            Matrix[2][7] = 1
+            Matrix[2][8] = 1
+            Matrix[3][7] = 1
+            Matrix[3][8] = 1
+        else:
+            Matrix[2][8] = 1
+            Matrix[2][9] = 1
+            Matrix[3][8] = 1
+            Matrix[3][9] = 1
         
 def split_digits(temp):
     if temp < 10:

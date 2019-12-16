@@ -2,7 +2,7 @@ import numpy
 import board
 import neopixel
 import random
-pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.8, auto_write=False)
+pixels = neopixel.NeoPixel(board.D18, 144,  brightness=0.9, auto_write=False)
 
 import mapping_matrix as mapping_matrix
 from mapping_matrix import *
@@ -167,4 +167,3 @@ def main():
         move_snake()
         time.sleep(0.1)
     end_game()
-
